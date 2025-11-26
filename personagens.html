@@ -1,58 +1,382 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personagens - Mundo do Leleny</title>
-  <link rel="stylesheet" href="personagens.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personagens - Mundo de Leleny</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1520 0%, #2d2438 100%);
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #4a3a6b;
+            background: rgba(45, 36, 56, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #623496 0%, #E1AB1A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 1.5rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #8B5FBF;
+        }
+
+        /* Header */
+        .page-header {
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 1px solid #4a3a6b;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #E1AB1A;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        /* Character Detail Card */
+        .character-detail {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid #4a3a6b;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .character-header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: start;
+        }
+
+        .character-emoji {
+            font-size: 4rem;
+            line-height: 1;
+        }
+
+        .character-info h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .character-info .age {
+            color: #8B5FBF;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .character-info p {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        /* Powers Section */
+        .powers-section {
+            margin-top: 2rem;
+        }
+
+        .powers-section h3 {
+            color: #E1AB1A;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .power-item {
+            background: rgba(98, 52, 150, 0.1);
+            border-left: 4px solid #623496;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .power-item .label {
+            color: #8B5FBF;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .power-item .name {
+            color: #E1AB1A;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .power-item p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        /* Relations Section */
+        .relations-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #4a3a6b;
+        }
+
+        .relations-section h3 {
+            color: #E1AB1A;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .relation-item {
+            background: rgba(225, 171, 26, 0.05);
+            border-left: 4px solid #E1AB1A;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .relation-item .relation-name {
+            color: #E1AB1A;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .relation-item p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #4a3a6b;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem 0;
+            text-align: center;
+            color: #8B5FBF;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .character-header {
+                grid-template-columns: 1fr;
+            }
+
+            .character-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav a {
+                margin: 0 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="mundo-leleny-home.html" class="logo">✨ Mundo de Leleny</a>
+            <div>
+                <a href="mundo-leleny-home.html#home">Home</a>
+                <a href="#personagens">Personagens</a>
+                <a href="mundo-leleny-home.html#cidades">Cidades</a>
+                <a href="mundo-leleny-home.html#lore">Lore</a>
+            </div>
+        </div>
+    </nav>
 
-<header class="header">
-  <h1 class="title">Personagens</h1>
-  <nav class="menu">
-    <a href="index.html">Início</a>
-    <a href="personagens.html" class="active">Personagens</a>
-    <a href="sobre.html">Sobre</a>
-  </nav>
-</header>
-
-<section class="container">
-
-  <h2 class="subtitle">Conheça os habitantes do Mundo do Leleny</h2>
-
-  <div class="grid">
-
-    <!-- MODELO DE PERSONAGEM -->
-    <div class="card">
-      <div class="card-img"></div>
-      <h3>Leleny</h3>
-      <p class="power">Poder: Poeira Estrelar</p>
-
-      <button class="btn" onclick="openCard('leleny')">Ver Detalhes</button>
+    <!-- Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1>📘 Personagens</h1>
+            <p>Conheça os protagonistas do Mundo de Leleny, cada um com seus poderes únicos, personalidades especiais e conexões profundas.</p>
+        </div>
     </div>
 
-    <!-- Adicione outros personagens aqui -->
-    <div class="card">
-      <div class="card-img"></div>
-      <h3>Nicky</h3>
-      <p class="power">Poder: Pétalas Rosadas</p>
-      <button class="btn" onclick="openCard('nicky')">Ver Detalhes</button>
-    </div>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Leleny -->
+            <div class="character-detail">
+                <div class="character-header">
+                    <div class="character-emoji">✨</div>
+                    <div class="character-info">
+                        <h2 style="color: #994be7;">Leleny</h2>
+                        <div class="age">16 anos</div>
+                        <p>Calmo, aconchegante, gentil, tímido e bem sensível às emoções dos outros. Tem uma vibe que mistura fofura com um pouco de mistério. Protagonista quieto com energia que muda de acordo com o estado emocional.</p>
+                    </div>
+                </div>
+                <div class="powers-section">
+                    <h3>Poderes:</h3>
+                    <div class="power-item">
+                        <div class="label">Primário</div>
+                        <div class="name">Poeira Estelar (Estelaris)</div>
+                        <p>As pequenas luzes emocionais dele são descritas como poeira de estrelas, flutuando, mudando com o humor dele e carregando emoções positivas.</p>
+                    </div>
+                    <div class="power-item">
+                        <div class="label">Reverso</div>
+                        <div class="name">Crepúsculo Pulsante</div>
+                        <p>A luz dele fica instável, as estrelas piscam rápido, o ambiente vibra de emoção forte demais.</p>
+                    </div>
+                </div>
+                <div class="relations-section">
+                    <h3>Relações:</h3>
+                    <div class="relation-item">
+                        <div class="relation-name">🌹 Melhor amigo: Nicky</div>
+                        <p>Esta é a relação mais forte. Eles têm uma conexão profunda, quase como se pudessem sentir as emoções um do outro.</p>
+                    </div>
+                </div>
+            </div>
 
-  </div>
-</section>
+            <!-- Nicky -->
+            <div class="character-detail">
+                <div class="character-header">
+                    <div class="character-emoji">🌹</div>
+                    <div class="character-info">
+                        <h2 style="color: #e2609e;">Nicky</h2>
+                        <div class="age">15 anos</div>
+                        <p>Doce, cuidadoso, meio sensível sem perceber. Tem aquele jeito que mistura charme natural com fragilidade bonita. É bem emocional, se apega fácil e sente muita responsabilidade sobre quem gosta.</p>
+                    </div>
+                </div>
+                <div class="powers-section">
+                    <h3>Poderes:</h3>
+                    <div class="power-item">
+                        <div class="label">Primário</div>
+                        <div class="name">Rosal Sereno (Floramagia)</div>
+                        <p>Rosas claras feitas de energia viva. Quando se desfazem em pétalas, curam feridas, acalmam o corpo e ajudam a estabilizar respiração e dor.</p>
+                    </div>
+                    <div class="power-item">
+                        <div class="label">Reverso</div>
+                        <div class="name">Rosa Sombria</div>
+                        <p>As rosas escurecem e esfriam o ambiente. Elas drenam energia leve de quem chega perto, deixando tudo mais silencioso e pesado.</p>
+                    </div>
+                </div>
+                <div class="relations-section">
+                    <h3>Relações:</h3>
+                    <div class="relation-item">
+                        <div class="relation-name">✨ Melhor amigo: Leleny</div>
+                        <p>A luz reconfortante de Leleny pode amplificar as pétalas curativas de Nicky. Quando estão juntos, seus poderes se reforçam.</p>
+                    </div>
+                </div>
+            </div>
 
-<!-- JANELA DE DETALHES -->
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <h2 id="modal-title"></h2>
-    <p id="modal-desc"></p>
+            <!-- Henry -->
+            <div class="character-detail">
+                <div class="character-header">
+                    <div class="character-emoji">🌊</div>
+                    <div class="character-info">
+                        <h2 style="color: #0076f5;">Henry</h2>
+                        <div class="age">16 anos</div>
+                        <p>Tranquilo, levemente introspectivo, mas com aquele humor meio calmo que passa segurança. Ele é o porto seguro do grupo — o mais estável, o que respira antes de agir.</p>
+                    </div>
+                </div>
+                <div class="powers-section">
+                    <h3>Poderes:</h3>
+                    <div class="power-item">
+                        <div class="label">Primário</div>
+                        <div class="name">Mar Interior (Lumiacqua)</div>
+                        <p>Ondas azul-ciano aparecem ao redor dele, trazendo foco, segurança emocional e leveza. Consegue estabilizar o ambiente e guiar pessoas por mudanças difíceis.</p>
+                    </div>
+                    <div class="power-item">
+                        <div class="label">Reverso</div>
+                        <div class="name">Mar Afogado</div>
+                        <p>As ondas ficam densas e profundas demais, criando uma pressão emocional forte. Deixa mente e ambiente pesados, como se tudo estivesse submerso.</p>
+                    </div>
+                </div>
+            </div>
 
-    <button class="close" onclick="closeCard()">Fechar</button>
-  </div>
-</div>
+            <!-- Amely -->
+            <div class="character-detail">
+                <div class="character-header">
+                    <div class="character-emoji">🌿</div>
+                    <div class="character-info">
+                        <h2 style="color: #27b049;">Amely</h2>
+                        <div class="age">17 anos</div>
+                        <p>Carismática, atenta, cheia de cuidado nas pequenas coisas. Tem um instinto de proteção muito bonito, mas é discreta, não gosta de ser o centro das atenções. Criativa, observadora, e expressa sentimentos através de gestos.</p>
+                    </div>
+                </div>
+                <div class="powers-section">
+                    <h3>Poderes:</h3>
+                    <div class="power-item">
+                        <div class="label">Primário</div>
+                        <div class="name">Eco Verde (Holoverde)</div>
+                        <p>Projeções verdes holográficas que ela cria com facilidade. Podem ser plantas, bichinhos, símbolos, escudos... todos com toque emocional suave e cuidadoso.</p>
+                    </div>
+                    <div class="power-item">
+                        <div class="label">Reverso</div>
+                        <div class="name">Superfluxo Verde</div>
+                        <p>As projeções ficam instáveis, piscando e preenchendo demais o ambiente. Deixam tudo sobrecarregado, como se a mente estivesse recebendo informação demais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<script src="personagens.js"></script>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>✨ Mundo de Leleny - Um universo mágico e aconchegante ✨</p>
+        </div>
+    </footer>
 </body>
 </html>
