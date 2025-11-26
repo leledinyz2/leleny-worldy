@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personagens - Mundo do Leleny</title>
+  <link rel="stylesheet" href="personagens.css">
+</head>
+<body>
+
+<header class="header">
+  <h1 class="title">Personagens</h1>
+  <nav class="menu">
+    <a href="index.html">Início</a>
+    <a href="personagens.html" class="active">Personagens</a>
+    <a href="sobre.html">Sobre</a>
+  </nav>
+</header>
+
+<section class="container">
+
+  <h2 class="subtitle">Conheça os habitantes do Mundo do Leleny</h2>
+
+  <div class="grid">
+
+    <!-- MODELO DE PERSONAGEM -->
+    <div class="card">
+      <div class="card-img"></div>
+      <h3>Leleny</h3>
+      <p class="power">Poder: Poeira Estrelar</p>
+
+      <button class="btn" onclick="openCard('leleny')">Ver Detalhes</button>
+    </div>
+
+    <!-- Adicione outros personagens aqui -->
+    <div class="card">
+      <div class="card-img"></div>
+      <h3>Nicky</h3>
+      <p class="power">Poder: Pétalas Rosadas</p>
+      <button class="btn" onclick="openCard('nicky')">Ver Detalhes</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- JANELA DE DETALHES -->
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <h2 id="modal-title"></h2>
+    <p id="modal-desc"></p>
+
+    <button class="close" onclick="closeCard()">Fechar</button>
+  </div>
+</div>
+
+<script src="personagens.js"></script>
+</body>
+</html>
