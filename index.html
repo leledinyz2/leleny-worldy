@@ -1,35 +1,475 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mundo do Leleny</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo de Leleny</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1520 0%, #2d2438 100%);
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #4a3a6b;
+            background: rgba(45, 36, 56, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #623496 0%, #E1AB1A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 1.5rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #8B5FBF;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg-circle1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(139, 95, 191, 0.2);
+            border-radius: 50%;
+            filter: blur(80px);
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-bg-circle2 {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 24rem;
+            height: 24rem;
+            background: rgba(225, 171, 26, 0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #8B5FBF 0%, #E1AB1A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #b0b0b0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #623496 0%, #8B5FBF 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(98, 52, 150, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #b0b0b0;
+            border: 1px solid #623496;
+        }
+
+        .btn-secondary:hover {
+            border-color: #8B5FBF;
+            color: #8B5FBF;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-purple {
+            background: linear-gradient(135deg, rgba(98, 52, 150, 0.05) 0%, rgba(98, 52, 150, 0.02) 100%);
+            border-left: 4px solid #623496;
+        }
+
+        .section-gold {
+            background: linear-gradient(135deg, rgba(225, 171, 26, 0.05) 0%, rgba(225, 171, 26, 0.02) 100%);
+            border-left: 4px solid #E1AB1A;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #E1AB1A;
+        }
+
+        /* World Overview */
+        .world-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .world-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(139, 95, 191, 0.2);
+        }
+
+        .world-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .world-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #E1AB1A;
+        }
+
+        .world-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        /* Characters Grid */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .character-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid #4a3a6b;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .character-card:hover {
+            border-color: #623496;
+            box-shadow: 0 10px 30px rgba(98, 52, 150, 0.2);
+        }
+
+        .character-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .character-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .character-card .age {
+            color: #8B5FBF;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .character-card .power {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Cities Grid */
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .city-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid #5a4a7b;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .city-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .city-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #E1AB1A;
+        }
+
+        .city-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #4a3a6b;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem 0;
+            text-align: center;
+            color: #8B5FBF;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav a {
+                margin: 0 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <canvas id="stars"></canvas>
-
-  <header class="header">
-    <h1 class="title">Mundo do <span>Leleny</span></h1>
-    <nav class="menu">
-      <a href="index.html">Início</a>
-      <a href="personagens.html">Personagens</a>
-      <a href="sobre.html">Sobre</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">✨ Mundo de Leleny</a>
+            <div>
+                <a href="#home">Home</a>
+                <a href="#personagens">Personagens</a>
+                <a href="#cidades">Cidades</a>
+                <a href="#lore">Lore</a>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <section class="hero">
-    <div class="hero-box">
-      <h2>Bem-vindo ao universo mágico do Leleny</h2>
-      <p>
-        Um mundo calmo, estrelado e cheio de mistério — onde cada personagem
-        carrega uma história única e poderes encantados.
-      </p>
-      <a href="personagens.html" class="btn">Explorar Personagens</a>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-bg-circle1"></div>
+            <div class="hero-bg-circle2"></div>
+        </div>
+        <div class="container">
+            <h1>Mundo de Leleny</h1>
+            <p>Um universo mágico onde as emoções ganham vida, as cores do céu mudam com os sentimentos, e a magia flui através dos corações mais sensíveis.</p>
+            <div class="hero-buttons">
+                <a href="#personagens" class="btn btn-primary">Conhecer Personagens</a>
+                <a href="#lore" class="btn btn-secondary">Explorar o Lore</a>
+            </div>
+        </div>
+    </section>
 
+    <!-- World Overview -->
+    <section class="section-purple">
+        <div class="container">
+            <h2>O Mundo Respira Magia</h2>
+            <div class="world-grid">
+                <div class="world-card">
+                    <div class="emoji">🌅</div>
+                    <h3>Manhãs Amareladas</h3>
+                    <p>O sol passa um filtro de nostalgia. As manhãs trazem foco e clareza, como se o mundo respirasse junto com você.</p>
+                </div>
+                <div class="world-card">
+                    <div class="emoji">🌸</div>
+                    <h3>Tardes Rosas</h3>
+                    <p>O ar parece ter perfume. As tardes trazem carinho e ternura, um abraço suave do universo.</p>
+                </div>
+                <div class="world-card">
+                    <div class="emoji">🌙</div>
+                    <h3>Noites Roxas</h3>
+                    <p>Um cobertor quente cobrindo a cidade. As noites despertam mistério e introspecção profunda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters -->
+    <section id="personagens">
+        <div class="container">
+            <h2>Personagens Principais</h2>
+            <div class="characters-grid">
+                <div class="character-card">
+                    <div class="emoji">✨</div>
+                    <h3 style="color: #994be7;">Leleny</h3>
+                    <div class="age">16 anos</div>
+                    <div class="power">Poeira Estelar</div>
+                </div>
+                <div class="character-card">
+                    <div class="emoji">🌹</div>
+                    <h3 style="color: #e2609e;">Nicky</h3>
+                    <div class="age">15 anos</div>
+                    <div class="power">Rosal Sereno</div>
+                </div>
+                <div class="character-card">
+                    <div class="emoji">🌊</div>
+                    <h3 style="color: #0076f5;">Henry</h3>
+                    <div class="age">16 anos</div>
+                    <div class="power">Mar Interior</div>
+                </div>
+                <div class="character-card">
+                    <div class="emoji">🌿</div>
+                    <h3 style="color: #27b049;">Amely</h3>
+                    <div class="age">17 anos</div>
+                    <div class="power">Eco Verde</div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="mundo-leleny-personagens.html" class="btn btn-primary">Ver Todos os Personagens</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cities -->
+    <section class="section-gold" id="cidades">
+        <div class="container">
+            <h2>As Três Cidades</h2>
+            <div class="cities-grid">
+                <div class="city-card">
+                    <div class="emoji">🏙️</div>
+                    <h3>Soulty</h3>
+                    <p>O coração emocional do universo</p>
+                </div>
+                <div class="city-card">
+                    <div class="emoji">🌆</div>
+                    <h3>Liberty</h3>
+                    <p>Cidade artística e vibrante</p>
+                </div>
+                <div class="city-card">
+                    <div class="emoji">🏞️</div>
+                    <h3>Serenyum</h3>
+                    <p>O lugar mais tranquilo e equilibrado</p>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="#" class="btn btn-secondary">Explorar as Cidades</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lore Preview -->
+    <section id="lore">
+        <div class="container">
+            <h2>Lore & História Geral</h2>
+            <div style="background: rgba(98, 52, 150, 0.1); border: 1px solid #623496; border-radius: 0.75rem; padding: 2rem; max-width: 800px; margin: 0 auto;">
+                <h3 style="color: #E1AB1A; margin-bottom: 1rem;">O Mundo Respira Magia</h3>
+                <p style="color: #b0b0b0; margin-bottom: 1rem;">
+                    No começo, tudo parecia igual ao nosso mundo: ruas comuns, escolas barulhentas, casas simples. Só que quem presta atenção percebe que esse lugar guarda um brilho diferente, quase escondido. É o mundo real, mas com um jeito mágico de respirar.
+                </p>
+                <p style="color: #b0b0b0; margin-bottom: 1rem;">
+                    É um universo onde a magia não vem de varinhas, mas das <strong>emoções</strong>. Quanto mais forte alguém sente, mais forte o mundo reage. Pessoas como Leleny e Nicky são raras: eles não só sentem o mundo, como o mundo sente eles de volta.
+                </p>
+                <p style="color: #b0b0b0;">
+                    É um mundo <strong>confortável</strong>, <strong>delicado</strong>, meio frágil e totalmente único — um canto onde quem sente demais finalmente encontra espaço pra existir.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>✨ Mundo de Leleny - Um universo mágico e aconchegante ✨</p>
+        </div>
+    </footer>
 </body>
-<script src="script.js"></script>
 </html>
